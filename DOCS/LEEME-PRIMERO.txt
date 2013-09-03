@@ -391,6 +391,13 @@ Si su instalación tiene múltiples nodos (controller / compute) use los archivo
 los que instaló cada nodo para la desinstalación del nodo correspondiente.
 
 
+GOODIES
+
+En el directorio "Goodies" usted podrá encontrar algunos scripts (cada uno con su respectivo readme)
+que puede utilizar con su instalación de OpenStack. Vea los scripts y sus respectivos "readmes" para
+entender mejor como usarlos !.
+
+
 NOTAS FINALES
 
 Este instalador fue orientado inicialmente al modelo de red flat/vlan's con router externos donde el

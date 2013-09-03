@@ -6,8 +6,8 @@
 # Julio del 2013
 #
 # Archivo de configuracion principal
-# Para el instalador versión 1.5.2 "BlackCat Reloaded"
-# Agosto 31, 2013
+# Para el instalador versión 1.5.4 "BlackCat Reloaded"
+# Septiembre 03, 2013
 #
 
 #
@@ -198,6 +198,13 @@ glanceuser="glance"
 glancesvce="glance"
 glancepass="P@ssw0rd"
 glanceemail="glance@localhost"
+#
+# Alternativamente, podemos crear de una vez las imágenes de prueba
+# para Cirros
+# Dejando la siguiente opción en "yes", el instalador dejará las imágenes
+# de prueba de cirros 0.3.1 32 y 64 bits ya creadas y listas para ser
+# utilizadas
+glancecirroscreate="yes"
 # Solo para la base de datos:
 # Si se van a tener varios hosts de glance, colocar aquí las IP's
 # para el acceso de la base de datos - sólo efectivo cuando el backend

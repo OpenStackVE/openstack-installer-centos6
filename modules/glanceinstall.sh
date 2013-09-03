@@ -234,4 +234,38 @@ echo ""
 echo "Glance Instalado"
 echo ""
 
+if [ $glancecirroscreate == "yes" ]
+then
+	echo ""
+	echo "Creando imágenes Cirros para pruebas de OpenStack"
+	echo ""
+	source $keystone_admin_rc_file
+
+	sync
+	sleep 5
+	sync
+
+	glance image-create --name="Cirros 0.3.1 32 bits" \
+		--disk-format=qcow2 \
+		--container-format bare < ./libs/cirros/cirros-0.3.1-i386-disk.img
+
+	sync
+	sleep 5
+	sync
+
+	glance image-create --name="Cirros 0.3.1 64 bits" \
+		--disk-format=qcow2 \
+		--container-format bare < ./libs/cirros/cirros-0.3.1-x86_64-disk.img
+
+	sync
+	sleep 5
+	sync
+
+	glance image-list
+
+	echo ""
+	echo "Imágenes de cirros 0.3.1 para 32 y 64 bits creadas"
+	echo ""
+fi
+
 
