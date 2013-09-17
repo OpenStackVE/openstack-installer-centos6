@@ -50,6 +50,7 @@ then
 		service mysqld start
 		chkconfig mysqld on
 		/usr/bin/mysqladmin -u $mysqldbadm password $mysqldbpassword
+		/usr/bin/mysqladmin -u $mysqldbadm -h $dbbackendhost password $mysqldbpassword
 		sleep 5
 		echo "[client]" > /root/.my.cnf
 		echo "user=$mysqldbadm" >> /root/.my.cnf

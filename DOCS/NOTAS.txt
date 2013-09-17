@@ -18,7 +18,7 @@ Este instalador es SOLAMENTE para CENTOS 6 / SL6 / RHEL 6 de 64 bits (x86_64 / a
 Asegurese de tener los repositorios de centos, epel y openstack-rdo:
 
 yum -y install http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-yum -y install http://repos.fedorapeople.org/repos/openstack/openstack-grizzly/epel-6/rdo-release-grizzly-3.noarch.rpm
+yum -y install http://repos.fedorapeople.org/repos/openstack/openstack-grizzly/rdo-release-grizzly-3.noarch.rpm
 
 2.- Kernel RDO:
 
