@@ -6,8 +6,8 @@
 # Primera versión (centos): Julio 18 del 2013
 #
 # Script principal
-# Versión 1.5.5 "BlackCat Reloaded"
-# 17 de Septiembre del 2013
+# Versión 1.5.6 "BlackCat Reloaded"
+# 21 de Octubre del 2013
 #
 
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -35,7 +35,7 @@ case $1 in
 	echo "Para releases 6.4 en adelante"
 	echo "Realizado por Reynaldo R. Martinez P."
 	echo "E-Mail: TigerLinux@Gmail.com"
-	echo "Versión 1.5.5 \"BlackCat Reloaded\" - Septiembre 17, 2013"
+	echo "Versión 1.5.6 \"BlackCat Reloaded\" - Octubre 21, 2013"
 	echo ""
 	echo "Se verificaran los prerequisitos"
 	echo "Si alguno de los prerequisitos falla, se informará y se detendrá el proceso"

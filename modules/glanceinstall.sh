@@ -241,20 +241,29 @@ then
 	echo ""
 	source $keystone_admin_rc_file
 
+	service openstack-glance-registry restart
+	service openstack-glance-api restart
+
 	sync
-	sleep 5
+	sleep 10
+	glance image-list
+
+	sync
+	sleep 10
 	sync
 
 	glance image-create --name="Cirros 0.3.1 32 bits" \
 		--disk-format=qcow2 \
+		--is-public true \
 		--container-format bare < ./libs/cirros/cirros-0.3.1-i386-disk.img
 
 	sync
-	sleep 5
+	sleep 10
 	sync
 
 	glance image-create --name="Cirros 0.3.1 64 bits" \
 		--disk-format=qcow2 \
+		--is-public true \
 		--container-format bare < ./libs/cirros/cirros-0.3.1-x86_64-disk.img
 
 	sync

@@ -95,8 +95,10 @@ openstack-config --set /etc/keystone/keystone.conf DEFAULT compute_port 8774
 openstack-config --set /etc/keystone/keystone.conf DEFAULT log_file /var/log/keystone/keystone.log
 openstack-config --set /etc/keystone/keystone.conf DEFAULT debug False
 openstack-config --set /etc/keystone/keystone.conf DEFAULT verbose False
-openstack-config --set /etc/keystone/keystone.conf sql idle_timeout 200 
-openstack-config --set /etc/keystone/keystone.conf signing token_format UUID
+openstack-config --set /etc/keystone/keystone.conf sql idle_timeout 200
+# A partir de la versión 1.5.6 cambiamos el signing a PKI en lugar de UUID
+# Backport de la versión 1.0.1.RC1 del instalador de HAVANA para Centos 6.
+openstack-config --set /etc/keystone/keystone.conf signing token_format PKI
 
 
 case $dbflavor in
@@ -109,6 +111,10 @@ case $dbflavor in
 esac
 
 chown -R keystone:keystone /var/log/keystone
+
+keystone-manage pki_setup --keystone-user keystone --keystone-group keystone
+
+chown -R keystone:keystone /var/log/keystone /etc/keystone/ssl
 
 su keystone -s /bin/sh -c "keystone-manage db_sync"
 
@@ -246,12 +252,36 @@ echo ""
 echo "Se procederá a crear las identidades, roles, servicios y endpoints para Swift, Glance, Cinder, Quantum, Nova y Ceilometer"
 echo ""
 
-./modules/keystone-swift.sh
-./modules/keystone-glance.sh
-./modules/keystone-cinder.sh
-./modules/keystone-quantum.sh
-./modules/keystone-nova.sh
-./modules/keystone-ceilometer.sh
+if [ $swiftinstall == "yes" ]
+then
+        ./modules/keystone-swift.sh
+fi
+
+if [ $glanceinstall == "yes" ]
+then
+        ./modules/keystone-glance.sh
+fi
+
+if [ $cinderinstall == "yes" ]
+then
+        ./modules/keystone-cinder.sh
+fi
+
+if [ $quantuminstall == "yes" ]
+then
+        ./modules/keystone-quantum.sh
+fi
+
+if [ $novainstall == "yes" ]
+then
+        ./modules/keystone-nova.sh
+fi
+
+if [ $ceilometerinstall == "yes" ]
+then
+        ./modules/keystone-ceilometer.sh
+fi
+
 ./modules/keystone-extratenants.sh
 
 date > /etc/openstack-control-script-config/keystone-extra-idents
