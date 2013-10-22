@@ -123,10 +123,10 @@ then
 		;;
 	esac
 
-	echo "yes"|/usr/share/openstack-dashboard/manage.py syncdb
-	echo "yes"|/usr/share/openstack-dashboard/manage.py syncdb
+	/usr/share/openstack-dashboard/manage.py syncdb --noinput
+	/usr/share/openstack-dashboard/manage.py createsuperuser --username=root --email=root@localhost.tld --noinput
 	mkdir -p /var/lib/dash/.blackhole
-	echo "yes"|/usr/share/openstack-dashboard/manage.py syncdb
+	/usr/share/openstack-dashboard/manage.py syncdb --noinput
 else
 	echo "CACHE_BACKEND = 'CUSTOM_DASHBOARD_memcached_spec'" >> /etc/openstack-dashboard/local_settings
 	sed -r -i "s/CUSTOM_DASHBOARD_memcached_spec/$memcached_spec/" /etc/openstack-dashboard/local_settings

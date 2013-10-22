@@ -122,21 +122,8 @@ rm -fr /etc/glance \
 	/var/lib/keystone-signing-swift \
 	/var/lib/rabbitmq \
 	$dnsmasq_config_file \
-	/usr/local/bin/vm-number-by-states.sh \
-	/usr/local/bin/vm-total-cpu-and-ram-usage.sh \
-	/usr/local/bin/vm-total-disk-bytes-usage.sh \
-	/usr/local/bin/node-cpu.sh \
-	/usr/local/bin/node-memory.sh \
-	/etc/cron.d/openstack-monitor.crontab \
-	/etc/dnsmasq-quantum.d \
-	/var/tmp/node-cpu.txt \
-	/var/tmp/node-memory.txt \
-	/var/tmp/packstack \
-	/var/tmp/vm-cpu-ram.txt \
-	/var/tmp/vm-disk.txt \
-	/var/tmp/vm-number-by-states.txt
+	/etc/dnsmasq-quantum.d
 
-service crond restart
 
 rm -f /root/keystonerc_admin
 rm -f /root/ks_admin_token
@@ -145,15 +132,32 @@ rm -f /usr/local/bin/openstack-log-cleaner.sh
 rm -f /etc/httpd/conf.d/openstack-dashboard.conf*
 rm -f /etc/httpd/conf.d/rootredirect.conf*
 
-if [ -f /etc/snmp/snmpd.conf.pre-openstack ]
+if [ $snmpinstall == "yes" ]
 then
-	rm -f /etc/snmp/snmpd.conf
-	mv /etc/snmp/snmpd.conf.pre-openstack /etc/snmp/snmpd.conf
-	service snmpd restart
-else
-	service snmpd stop
-	yum -y erase net-snmp
-	rm -rf /etc/snmp
+	if [ -f /etc/snmp/snmpd.conf.pre-openstack ]
+	then
+		rm -f /etc/snmp/snmpd.conf
+		mv /etc/snmp/snmpd.conf.pre-openstack /etc/snmp/snmpd.conf
+		service snmpd restart
+	else
+		service snmpd stop
+		yum -y erase net-snmp
+		rm -rf /etc/snmp
+	fi
+	rm -f 	/var/tmp/node-cpu.txt \
+	/var/tmp/node-memory.txt \
+	/var/tmp/packstack \
+	/var/tmp/vm-cpu-ram.txt \
+	/var/tmp/vm-disk.txt \
+	/var/tmp/vm-number-by-states.txt \
+	/usr/local/bin/vm-number-by-states.sh \
+	/usr/local/bin/vm-total-cpu-and-ram-usage.sh \
+	/usr/local/bin/vm-total-disk-bytes-usage.sh \
+	/usr/local/bin/node-cpu.sh \
+	/usr/local/bin/node-memory.sh \
+	/etc/cron.d/openstack-monitor.crontab
+
+	service crond restart
 fi
 
 echo "Reiniciando Apache sin archivos del Dashboard"
