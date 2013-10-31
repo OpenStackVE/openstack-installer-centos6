@@ -66,8 +66,10 @@ yum install -y openstack-quantum openstack-quantum-openvswitch openstack-utils o
 echo ""
 echo "Listo"
 
+
 echo ""
 echo "Actualizando versión de dnsmasq"
+yum -y install dnsmasq dnsmasq-utils
 rpm -Uvh ./libs/dnsmasq-2.65-1.el6.rfx.x86_64.rpm
 
 echo "Listo"
@@ -75,6 +77,8 @@ echo "Listo"
 sleep 5
 cat /etc/dnsmasq.conf > $dnsmasq_config_file
 mkdir -p /etc/dnsmasq-quantum.d
+echo "user=quantum" >> $dnsmasq_config_file
+echo "group=quantum" >> $dnsmasq_config_file
 echo "conf-dir=/etc/dnsmasq-quantum.d" >> $dnsmasq_config_file
 echo "# Extra options for Quantum-DNSMASQ" > /etc/dnsmasq-quantum.d/quantum-dnsmasq-extra.conf
 echo "# Samples:" >> /etc/dnsmasq-quantum.d/quantum-dnsmasq-extra.conf
